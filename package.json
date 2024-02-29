@@ -1,0 +1,19 @@
+{
+  "name": "ficbook-parser",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "amperemeter",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "file-system": "^2.2.2",
+    "needle": "^2.5.2",
+    "nightmare": "^3.0.2",
+    "tough-cookie": "^2.5.0"
+  }
+}
