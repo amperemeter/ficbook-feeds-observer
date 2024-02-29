@@ -21,7 +21,7 @@ const ReadCollection = async(fanfics, fanficProto, saveCount) => {
 
   for (const fanfic of fanficsCopied) {
     await scrape(fanfic, saveCount);
-    await timeout(500); // имитируем действия человека
+    await timeout(1000); // имитируем действия человека
   }
 
   console.timeEnd("Время работы");

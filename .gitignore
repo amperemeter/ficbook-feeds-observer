@@ -12,4 +12,3 @@ logs
 package-lock.json
 mongodb/package-lock.json
 uri.js
-data.txt
