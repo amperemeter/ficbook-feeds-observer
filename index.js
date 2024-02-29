@@ -20,14 +20,15 @@ console.time("Конец работы");
 
 (async () => {
 
-  // Получить данные с сайта   
+  // получить данные с сайта
   async function scrape(fanficContext, link) {
     // проверить, к какому типу относится ссылка
     const linkFilter = link.includes('fandom_filter');
-    // дополнить ссылку со страницы фильтра необходимыми параметрами
-    let urlOuter;
-    linkFilter && (urlOuter = `${link}&find=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8!#result`);
 
+    // дополнить ссылку со страницы фильтра необходимыми параметрами
+    const urlOuter = linkFilter ? `${link}&find=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8!#result` : "";
+
+    // добавить куки
     const cookieJar = new CookieJar();
 
     let options = {
@@ -43,28 +44,32 @@ console.time("Конец работы");
       user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36',
     }
 
-    await needle('get', linkFilter ? urlOuter : `${link}?p=1`, options)
+    await needle('get', urlOuter || `${link}?p=1`, options)
       .then(async function (res, err) {
         if (err) throw err;
 
         // вычислить количество страниц на странице фэндома
-        let $ = cheerio.load(res.body),
-          cookie = $("#no-cookie-warning p").html();
+        let $ = cheerio.load(res.body);
+        // console.log(res.body);
 
-        console.log(cookie);
+        // let cookie = $("#no-cookie-warning p").html();
+        // console.log('cookie', cookie);
 
         let page = $(".pagenav .paging-description b:last-of-type").html();
+        // console.log($(".pagenav").html());
+
         page = page ? page : 1;
         // дополнить ссылку со страницы фильтра необходимыми параметрами
-        let urlInner;
-        linkFilter && (urlInner = `${link}&find=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8!&p=${page}#result`);
+        const urlInner = linkFilter ? `${link}&find=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8!&p=${page}#result` : "";
 
-        await needle('get', linkFilter ? urlInner : `${link}?p=${page}`, options)
+        await needle('get', urlInner || `${link}?p=${page}`, options)
           .then(async function (res, err) {
             if (err) throw err;
             $ = cheerio.load(res.body);
+
             // проверить наличие блока с "горячими работами"
             const blockSeparator = $(".fanfic-thumb-block").next($(".block-separator")).length;
+
             // вычислить количество фанфиков на последней странице
             let articles;
             if (linkFilter && blockSeparator) {
@@ -74,11 +79,12 @@ console.time("Конец работы");
             } else {
               articles = $(".fanfic-thumb-block:last-of-type .fanfic-inline").length;
             }
+
             // вычислить количество фанфиков на всех страницах
             articles = (page - 1) * 20 + articles;
             await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
             await fanficContext.checkIsNew(); // проверить разницу между oldArticleCount и articleCount 
-            await fanficContext.putData(); // добавить новые данные в массив newFanficsArr 
+            await fanficContext.putData(); // добавить новые данные в массив newFanficsArr
           })
           .catch(function (err) {
             console.log(`Needle inner error!\n ${err}\n`);
@@ -88,6 +94,7 @@ console.time("Конец работы");
         console.log(`Needle outer error!\n ${err}\n`);
       });
   } // end function scrape
+
 
   // Рабочий объект  
   const fanficProto = {
@@ -117,6 +124,8 @@ console.time("Конец работы");
         console.log(`${this.name}\nновых ${difference}\n${this.url}\n`);
       } else if (difference < 0) {
         console.log(`${this.name}\nудалено ${difference}\n`);
+      } else {
+        console.log(`${this.name}\nнет новых `)
       }
     },
     async putData() {
@@ -129,6 +138,7 @@ console.time("Конец работы");
       newFanficsArr.push(newFanficsObject);
     }
   } // end fanficProto 
+
 
   //Создать массив с данными из fanfics.json 
   async function readCollection() {
@@ -156,8 +166,7 @@ console.time("Конец работы");
 
   if (fanficsArr.length == newFanficsArr.length) {
     await fs.writeFileSync('./fanfics.json', JSON.stringify(newFanficsArr, null, 2)); // записать новые данные в fanfics.json
-  }
-  else {
+  } else {
     console.log("Ошибка. Данные не могут быть сохранены");
   }
   console.timeEnd("Конец работы"); // завершить подсчет времени выполнения парсинга 
