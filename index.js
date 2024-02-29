@@ -19,7 +19,6 @@ console.time("Конец работы");
 
 
 (async () => {
-
   // получить данные с сайта
   async function scrape(fanficContext, link) {
     // проверить, к какому типу относится ссылка
@@ -32,16 +31,9 @@ console.time("Конец работы");
     const cookieJar = new CookieJar();
 
     let options = {
-      follow_max: 10,
-      follow_set_cookies: true,
-      follow_set_referer: true,
-      follow_keep_method: true,
-      follow_if_same_host: true,
-      follow_if_same_protocol: true,
-      follow_if_same_location: true,
-      cookies: cookieJar,
-      compressed: true,
-      user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.101 Safari/537.36',
+      open_timeout: 60000,
+      user_agent: 'MyApp/1.2.3',
+      parse_response: false,
     }
 
     await needle('get', urlOuter || `${link}?p=1`, options)
@@ -52,13 +44,12 @@ console.time("Конец работы");
         let $ = cheerio.load(res.body);
         // console.log(res.body);
 
-        // let cookie = $("#no-cookie-warning p").html();
-        // console.log('cookie', cookie);
+        if (!$(".content-section").length) {
+          throw new Error('Не найдена страница!');
+        }
 
-        let page = $(".pagenav .paging-description b:last-of-type").html();
-        // console.log($(".pagenav").html());
+        const page = $(".pagenav .paging-description b:last-of-type").html() || '1';
 
-        page = page ? page : 1;
         // дополнить ссылку со страницы фильтра необходимыми параметрами
         const urlInner = linkFilter ? `${link}&find=%D0%9D%D0%B0%D0%B9%D1%82%D0%B8!&p=${page}#result` : "";
 
@@ -67,18 +58,8 @@ console.time("Конец работы");
             if (err) throw err;
             $ = cheerio.load(res.body);
 
-            // проверить наличие блока с "горячими работами"
-            const blockSeparator = $(".fanfic-thumb-block").next($(".block-separator")).length;
-
             // вычислить количество фанфиков на последней странице
-            let articles;
-            if (linkFilter && blockSeparator) {
-              articles = $(".fanfic-thumb-block").next($(".block-separator")).nextAll($(".fanfic-thumb-block")).length;
-            } else if (linkFilter) {
-              articles = $(".fanfic-thumb-block").length;
-            } else {
-              articles = $(".fanfic-thumb-block:last-of-type .fanfic-inline").length;
-            }
+            let articles = $(".fanfic-inline").length - $(".fanfic-inline-hot").length;
 
             // вычислить количество фанфиков на всех страницах
             articles = (page - 1) * 20 + articles;
@@ -87,11 +68,11 @@ console.time("Конец работы");
             await fanficContext.putData(); // добавить новые данные в массив newFanficsArr
           })
           .catch(function (err) {
-            console.log(`Needle inner error!\n ${err}\n`);
+            console.log(`Needle inner error!\n${err.message}\n`);
           });
       })
       .catch(function (err) {
-        console.log(`Needle outer error!\n ${err}\n`);
+        console.log(`Needle outer error!\n${err.message}\n`);
       });
   } // end function scrape
 
@@ -124,8 +105,6 @@ console.time("Конец работы");
         console.log(`${this.name}\nновых ${difference}\n${this.url}\n`);
       } else if (difference < 0) {
         console.log(`${this.name}\nудалено ${difference}\n`);
-      } else {
-        console.log(`${this.name}\nнет новых `)
       }
     },
     async putData() {
@@ -146,7 +125,7 @@ console.time("Конец работы");
     const fanficsArrCopy = [];
 
     // создать объекты с использованием данных из fanfics.json и добавить их в массив fanficsArrCopy
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < fanficsArr.length; i++) {
       const fanficObj = Object.assign({}, fanficProto);
       fanficObj.name = fanficsArr[i].name;
       fanficObj.url = fanficsArr[i].url;
@@ -169,5 +148,6 @@ console.time("Конец работы");
   } else {
     console.log("Ошибка. Данные не могут быть сохранены");
   }
+
   console.timeEnd("Конец работы"); // завершить подсчет времени выполнения парсинга 
 })();
