@@ -24,8 +24,10 @@ const Scrape = async (fanficContext, func) => {
         page = $(".pagenav .paging-description b:last-of-type").html() || page;
 
         // проверить наличие блока с "горячими работами"
-        if ($(".block-separator").length) {
-          hotArticles = $(".block-separator").parent('section').children('article').length;
+        const blockSeparator = $(".block-separator");
+
+        if (blockSeparator.length) {
+          hotArticles = blockSeparator.parent('section').children('article').length;
         }
 
         await getArticles();
