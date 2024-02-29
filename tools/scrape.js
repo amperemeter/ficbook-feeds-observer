@@ -2,7 +2,7 @@ const needle = require("needle");
 const cheerio = require("cheerio");
 
 const Scrape = async (fanficContext, func) => {
-  let page, hotArticles = 0, link = fanficContext.url;
+  let page = '1', hotArticles = 0, link = fanficContext.url;
 
   const options = {
     open_timeout: 60000,
@@ -10,7 +10,7 @@ const Scrape = async (fanficContext, func) => {
     parse_response: false,
   }
 
-  const getLastPage = async () => {
+  async function getLastPage() {
     await needle('get', `${link}?p=1`, options)
       .then(async function (res, err) {
         if (err) throw err;
@@ -18,30 +18,28 @@ const Scrape = async (fanficContext, func) => {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length ) {
-          throw new Error('Не найдена страница!');
+          throw new Error(`Не найдена страница ${link}!`);
         }
 
-        page = $(".pagenav .paging-description b:last-of-type").html() || '1';
+        page = $(".pagenav .paging-description b:last-of-type").html() || page;
 
         // проверить наличие блока с "горячими работами"
         if ($(".block-separator").length) {
           hotArticles = $(".block-separator").parent('section').children('article').length;
         }
+
+        await getArticles();
       })
       .catch(function (err) {
         console.log(`Needle First Page Error!\n${err.message}\n`);
       });
   }
 
-  const getArticles = async () => {
+  async function getArticles() {
     await needle('get', `${link}?p=${page}`, options)
       .then(async function (res, err) {
         if (err) throw err;
         const $ = cheerio.load(res.body);
-
-        if (!$(".content-section").length ) {
-          throw new Error('Не найдена страница!');
-        }
 
         // вычислить количество фанфиков
         let articles = $(".fanfic-inline").length;
@@ -57,7 +55,6 @@ const Scrape = async (fanficContext, func) => {
   }
 
   await getLastPage();
-  await getArticles();
 }
 
 module.exports = Scrape;
