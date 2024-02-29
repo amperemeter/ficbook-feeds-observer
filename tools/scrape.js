@@ -2,7 +2,7 @@ const needle = require("needle");
 const cheerio = require("cheerio");
 
 const Scrape = async (fanficContext, func) => {
-  let page, link = fanficContext.url;
+  let page, hotArticles = 0, link = fanficContext.url;
 
   const options = {
     open_timeout: 60000,
@@ -22,6 +22,11 @@ const Scrape = async (fanficContext, func) => {
         }
 
         page = $(".pagenav .paging-description b:last-of-type").html() || '1';
+
+        // проверить наличие блока с "горячими работами"
+        if ($(".block-separator").length) {
+          hotArticles = $(".block-separator").parent('section').children('article').length;
+        }
       })
       .catch(function (err) {
         console.log(`Needle First Page Error!\n${err.message}\n`);
@@ -34,12 +39,9 @@ const Scrape = async (fanficContext, func) => {
         if (err) throw err;
         const $ = cheerio.load(res.body);
 
-        // проверить наличие блока с "горячими работами"
-        // const blockSeparator = $(".fanfic-thumb-block").next($(".block-separator")).length;
-
         // вычислить количество фанфиков
         let articles = $(".fanfic-inline").length;
-        articles = (page - 1) * 20 + articles;
+        articles = (page - 1) * 20 + articles - hotArticles;
 
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
