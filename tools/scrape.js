@@ -17,7 +17,7 @@ const Scrape = async (fanficContext, func) => {
 
         const $ = cheerio.load(res.body);
 
-        if (!$(".content-section").length) {
+        if (!$(".content-section").length ) {
           throw new Error('Не найдена страница!');
         }
 
@@ -38,6 +38,10 @@ const Scrape = async (fanficContext, func) => {
       .then(async function (res, err) {
         if (err) throw err;
         const $ = cheerio.load(res.body);
+
+        if (!$(".content-section").length ) {
+          throw new Error('Не найдена страница!');
+        }
 
         // вычислить количество фанфиков
         let articles = $(".fanfic-inline").length;

@@ -6,7 +6,7 @@ const  assert = require('assert'),
 
 MongoClient.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true}, async function (err, client) {
   assert.equal(null, err);
-  const collection = client.db('fanficsdb').collection('fanfics-test');
+  const collection = client.db('fanficsdb').collection('fanfics');
   const fanfics = await collection.find({}).toArray();
 
   const saveCount = async (obj) => {
