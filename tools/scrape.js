@@ -18,7 +18,11 @@ const Scrape = async (fanficContext, func) => {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length ) {
-          throw new Error(`Не найдена страница ${link}!`);
+          if (link.includes('pairings')) {
+            return;
+          }
+
+          throw new Error(`Возникли какие-то проблемы!`);
         }
 
         page = $(".pagenav .paging-description b:last-of-type").html() || page;
