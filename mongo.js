@@ -4,7 +4,7 @@ const  assert = require('assert'),
   Proto = require('./tools/proto'),
   ReadCollection = require('./tools/read-collection');
 
-MongoClient.connect(uri, {useUnifiedTopology: true, useNewUrlParser: true}, async function (err, client) {
+MongoClient.connect(uri, async function (err, client) {
   assert.equal(null, err);
   const collection = client.db('fanficsdb').collection('fanfics');
   const fanfics = await collection.find({}).toArray();
