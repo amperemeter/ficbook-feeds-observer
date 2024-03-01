@@ -35,7 +35,7 @@ const Scrape = async (fanficContext, func) => {
           hotArticles = blockSeparator.parent('section').children('article').length;
         }
 
-        await timeout(1000); // имитируем действия человека
+        await timeout(500); // имитируем действия человека
         await getArticles();
       })
       .catch(function (err) {
@@ -57,6 +57,8 @@ const Scrape = async (fanficContext, func) => {
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
         await fanficContext.saveCount(func); // сохранить данные
+
+        await timeout(500); // имитируем действия человека
       })
       .catch(function (err) {
         console.log(`Needle Last Page Error!\n${err.message}\n`);
