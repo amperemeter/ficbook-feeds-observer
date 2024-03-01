@@ -14,7 +14,7 @@ const Proto = {
     const difference = this.isNew();
 
     if (difference > 0) {
-      console.log(`${this.name}\nновых ${difference}\n${this.url}\n`);
+      console.log(`${this.name}\n${this.url}\nновых ${difference}\n`);
     } else if (difference < 0) {
       console.log(`${this.name}\nудалено ${difference}\n`);
     }
