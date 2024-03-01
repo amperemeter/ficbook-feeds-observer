@@ -11,7 +11,9 @@ MongoClient.connect(uri, async function (err, client) {
 
   const saveCount = async (obj) => {
     try {
-      if (obj.difference !== 0) {
+      const difference = obj.isNew();
+
+      if (difference !== 0) {
         await collection.updateOne({url: obj.url}, {$set: {count: obj.articleCount}});
       }
     } catch (err) {

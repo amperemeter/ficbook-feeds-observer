@@ -22,8 +22,9 @@ const Scrape = async (fanficContext, func) => {
 
         const $ = cheerio.load(res.body);
 
-        if (!$(".content-section").length && !$(".error-message").length) {
-          throw new Error(`Возникли какие-то проблемы!`);
+        if (!$(".content-section").length) {
+          console.error(`${fanficContext.name}: нет страницы фэндома\n`);
+          return false;
         }
 
         page = $(".pagenav .paging-description b:last-of-type").html() || page;
@@ -35,7 +36,7 @@ const Scrape = async (fanficContext, func) => {
           hotArticles = blockSeparator.parent('section').children('article').length;
         }
 
-        await timeout(500); // имитируем действия человека
+        await timeout(700); // имитируем действия человека
         await getArticles();
       })
       .catch(function (err) {
@@ -51,14 +52,14 @@ const Scrape = async (fanficContext, func) => {
         const $ = cheerio.load(res.body);
 
         // вычислить количество фанфиков
-        let articles = $(".fanfic-inline").length;
-        articles = (page - 1) * 20 + articles - hotArticles;
+        const articlesOnLastPage = $(".fanfic-inline").length;
+        const articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
 
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
         await fanficContext.saveCount(func); // сохранить данные
 
-        await timeout(500); // имитируем действия человека
+        await timeout(700); // имитируем действия человека
       })
       .catch(function (err) {
         console.log(`Needle Last Page Error!\n${err.message}\n`);
