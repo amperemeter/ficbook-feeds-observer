@@ -23,7 +23,7 @@ const Scrape = async (fanficContext, func) => {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length) {
-          console.error(`${fanficContext.name}: нет страницы фэндома\n`);
+          console.error(`${fanficContext.name}\nнет страницы фэндома\n`);
           return false;
         }
 
