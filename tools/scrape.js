@@ -1,6 +1,11 @@
 const needle = require("needle");
 const cheerio = require("cheerio");
 
+
+const timeout = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 const Scrape = async (fanficContext, func) => {
   let page = '1', hotArticles = 0, link = fanficContext.url;
 
@@ -30,6 +35,7 @@ const Scrape = async (fanficContext, func) => {
           hotArticles = blockSeparator.parent('section').children('article').length;
         }
 
+        await timeout(1000); // имитируем действия человека
         await getArticles();
       })
       .catch(function (err) {
@@ -41,6 +47,7 @@ const Scrape = async (fanficContext, func) => {
     await needle('get', `${link}?p=${page}`, options)
       .then(async function (res, err) {
         if (err) throw err;
+
         const $ = cheerio.load(res.body);
 
         // вычислить количество фанфиков

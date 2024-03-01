@@ -1,9 +1,5 @@
 const scrape = require("./scrape");
 
-const timeout = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const ReadCollection = async(fanfics, fanficProto, saveCount) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
@@ -21,7 +17,6 @@ const ReadCollection = async(fanfics, fanficProto, saveCount) => {
 
   for (const fanfic of fanficsCopied) {
     await scrape(fanfic, saveCount);
-    await timeout(1000); // имитируем действия человека
   }
 
   console.timeEnd("Время работы");
