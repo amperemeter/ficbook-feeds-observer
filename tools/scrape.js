@@ -38,6 +38,7 @@ const Scrape = async (fanficContext, func) => {
 
         await timeout(700); // имитируем действия человека
         await getArticles();
+        await timeout(700);
       })
       .catch(function (err) {
         console.log(`Needle First Page Error!\n${err.message}\n`);
@@ -58,8 +59,6 @@ const Scrape = async (fanficContext, func) => {
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
         await fanficContext.saveCount(func); // сохранить данные
-
-        await timeout(700); // имитируем действия человека
       })
       .catch(function (err) {
         console.log(`Needle Last Page Error!\n${err.message}\n`);
