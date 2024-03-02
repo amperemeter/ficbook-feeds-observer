@@ -37,9 +37,13 @@ const scrape = async (fanficContext, props) => {
         }
 
         await timeout(700); // имитируем действия человека
+        return page;
+      })
+      .then(async function (page) {
         await getArticles(page);
         await timeout(700);
-      })
+        }
+      )
       .catch(function (err) {
         console.log(`Needle First Page Error!\n${err.message}\n`);
       });
