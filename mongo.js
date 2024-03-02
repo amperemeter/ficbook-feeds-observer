@@ -1,6 +1,6 @@
 const  assert = require('assert'),
   MongoClient = require('mongodb').MongoClient,
-  uri = require('./uri'),
+  uri = require('./data/uri'),
   Proto = require('./tools/proto'),
   ReadCollection = require('./tools/read-collection');
 

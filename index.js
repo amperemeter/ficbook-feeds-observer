@@ -1,7 +1,7 @@
 const fs = require('file-system'),
   Proto = require('./tools/proto'),
   ReadCollection = require('./tools/read-collection'),
-  fanfics = require('./fanfics');
+  fanfics = require('./data/fanfics');
 
 (async function() {
   const changedFanfics = [];
