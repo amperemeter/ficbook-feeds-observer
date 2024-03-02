@@ -4,16 +4,7 @@ const fanfics = require('./data/fanfics');
 
 (async function() {
   const changedFanfics = [];
-
-  const saveCount = (obj) => {
-    changedFanfics.push({
-      "name": obj.name,
-      "url": obj.url,
-      "count": obj.articleCount
-    });
-  };
-
-  await readCollection(fanfics, saveCount);
+  await readCollection(fanfics, {changedFanfics});
 
   if (fanfics.length === changedFanfics.length) {
     await fs.writeFileSync('./data/fanfics.json', JSON.stringify(changedFanfics, null, 2));

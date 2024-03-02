@@ -6,7 +6,7 @@ const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const scrape = async (fanficContext, func) => {
+const scrape = async (fanficContext, props) => {
   let hotArticles = 0, link = fanficContext.url;
 
   const options = {
@@ -58,7 +58,8 @@ const scrape = async (fanficContext, func) => {
 
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
-        await fanficContext.saveCount(func); // сохранить данные
+        await fanficContext.saveData(props.changedFanfics); // сохранить данные
+        await fanficContext.saveCount(props.collection); // сохранить кол-во новых работ
       })
       .catch(function (err) {
         console.log(`Needle Last Page Error!\n${err.message}\n`);

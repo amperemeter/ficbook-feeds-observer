@@ -1,7 +1,7 @@
 const scrape = require("./scrape");
 const proto = require('./proto');
 
-const readCollection = async(fanfics, saveCount) => {
+const readCollection = async(fanfics, props) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
 
@@ -17,7 +17,7 @@ const readCollection = async(fanfics, saveCount) => {
   }
 
   for (const fanfic of fanficsCopied) {
-    await scrape(fanfic, saveCount);
+    await scrape(fanfic, props);
   }
 
   console.timeEnd("Время работы");

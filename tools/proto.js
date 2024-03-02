@@ -23,8 +23,25 @@ const proto = {
     //   console.log('нет новых'); // для проверки
     // }
   },
-  saveCount: async function(func) {
-      await func(this);
+  async saveData(changedFanfics) {
+    if (!changedFanfics) return;
+
+    changedFanfics.push({
+        "name": this.name,
+        "url": this.url,
+        "count": this.articleCount
+      });
+  },
+  async saveCount(collection) {
+    try {
+      if (!collection) return;
+
+      if (this.isNew()) {
+        await collection.updateOne({url: this.url}, {$set: {count: this.articleCount}});
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 };
 

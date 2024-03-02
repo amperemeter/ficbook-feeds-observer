@@ -8,18 +8,6 @@ MongoClient.connect(uri, async function (err, client) {
   const collection = client.db('fanficsdb').collection('fanfics');
   const fanfics = await collection.find({}).toArray();
 
-  const saveCount = async (obj) => {
-    try {
-      const difference = obj.isNew();
-
-      if (difference !== 0) {
-        await collection.updateOne({url: obj.url}, {$set: {count: obj.articleCount}});
-      }
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
-
-  await readCollection(fanfics, saveCount);
+  await readCollection(fanfics, {collection});
   await client.close(); // закрыть подключение с БД
 });
