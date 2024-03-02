@@ -2,7 +2,6 @@
 
 # Игнорировать каталог node_modules 
 /node_modules
-mongodb/node_modules
 
 # Игнорирование логов 
 logs 
@@ -10,5 +9,4 @@ logs
 
 # Игнорирование файлов 
 package-lock.json
-mongodb/package-lock.json
 uri.js
