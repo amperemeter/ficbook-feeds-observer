@@ -15,7 +15,7 @@ const fanfics = require('./data/fanfics');
 
   await readCollection(fanfics, saveCount);
 
-  if (changedFanfics.length) {
+  if (fanfics.length === changedFanfics.length) {
     await fs.writeFileSync('./data/fanfics.json', JSON.stringify(changedFanfics, null, 2));
   } else {
     console.log("Ошибка. Данные не могут быть сохранены");
