@@ -16,7 +16,7 @@ const proto = {
     if (difference > 0) {
       console.log(`${this.name}\n${this.url}\nновых ${difference}\n`);
     } else if (difference < 0) {
-      console.log(`${this.name}\nудалено ${difference}\n`);
+      console.log(`${this.name}\nудалено ${Math.abs(difference)}\n`);
     }
 
     // if (difference === 0) {
