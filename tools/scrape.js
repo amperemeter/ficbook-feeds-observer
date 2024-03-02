@@ -6,7 +6,7 @@ const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const Scrape = async (fanficContext, func) => {
+const scrape = async (fanficContext, func) => {
   let page = '1', hotArticles = 0, link = fanficContext.url;
 
   const options = {
@@ -68,4 +68,4 @@ const Scrape = async (fanficContext, func) => {
   await getLastPage();
 }
 
-module.exports = Scrape;
+module.exports = scrape;

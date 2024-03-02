@@ -1,4 +1,4 @@
-const Proto = {
+const proto = {
   id: '',
   name: '',
   url: '',
@@ -28,4 +28,4 @@ const Proto = {
   }
 };
 
-module.exports = Proto;
+module.exports = proto;

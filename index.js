@@ -1,7 +1,6 @@
-const fs = require('file-system'),
-  Proto = require('./tools/proto'),
-  ReadCollection = require('./tools/read-collection'),
-  fanfics = require('./data/fanfics');
+const fs = require('file-system');
+const readCollection = require('./tools/read-collection');
+const fanfics = require('./data/fanfics');
 
 (async function() {
   const changedFanfics = [];
@@ -14,7 +13,7 @@ const fs = require('file-system'),
     });
   };
 
-  await ReadCollection(fanfics, Proto, saveCount);
+  await readCollection(fanfics, saveCount);
 
   if (fanfics.length === changedFanfics.length) {
     await fs.writeFileSync('./data/fanfics.json', JSON.stringify(changedFanfics, null, 2));

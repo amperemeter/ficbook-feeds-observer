@@ -1,8 +1,7 @@
-const  assert = require('assert'),
-  MongoClient = require('mongodb').MongoClient,
-  uri = require('./data/uri'),
-  Proto = require('./tools/proto'),
-  ReadCollection = require('./tools/read-collection');
+const assert = require('assert');
+const MongoClient = require('mongodb').MongoClient;
+const uri = require('./data/uri');
+const readCollection = require('./tools/read-collection');
 
 MongoClient.connect(uri, async function (err, client) {
   assert.equal(null, err);
@@ -21,6 +20,6 @@ MongoClient.connect(uri, async function (err, client) {
     }
   };
 
-  await ReadCollection(fanfics,  Proto, saveCount);
+  await readCollection(fanfics, saveCount);
   await client.close(); // закрыть подключение с БД
 });
