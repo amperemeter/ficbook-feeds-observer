@@ -7,7 +7,7 @@ const timeout = ms => {
 }
 
 const scrape = async (fanficContext, func) => {
-  let page = '1', hotArticles = 0, link = fanficContext.url;
+  let hotArticles = 0, link = fanficContext.url;
 
   const options = {
     open_timeout: 60000,
@@ -27,7 +27,7 @@ const scrape = async (fanficContext, func) => {
           return false;
         }
 
-        page = $(".pagenav .paging-description b:last-of-type").html() || page;
+        const page = $(".pagenav .paging-description b:last-of-type").html() || '1';
 
         // проверить наличие блока с "горячими работами"
         const blockSeparator = $(".block-separator");
@@ -37,7 +37,7 @@ const scrape = async (fanficContext, func) => {
         }
 
         await timeout(700); // имитируем действия человека
-        await getArticles();
+        await getArticles(page);
         await timeout(700);
       })
       .catch(function (err) {
@@ -45,7 +45,7 @@ const scrape = async (fanficContext, func) => {
       });
   }
 
-  async function getArticles() {
+  async function getArticles(page) {
     await needle('get', `${link}?p=${page}`, options)
       .then(async function (res, err) {
         if (err) throw err;
