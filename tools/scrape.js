@@ -17,9 +17,7 @@ const scrape = async (fanficContext, props) => {
 
   async function getLastPage() {
     await needle('get', `${link}?p=1`, options)
-      .then(async function (res, err) {
-        if (err) throw err;
-
+      .then(async function (res) {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length) {
