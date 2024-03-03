@@ -23,8 +23,7 @@ const scrape = async (fanficContext, props) => {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length) {
-          console.error(`${fanficContext.name}\nнет страницы фэндома\n`);
-          return false;
+          throw new Error(`${fanficContext.name}\nнет страницы фэндома`);
         }
 
         const page = $(".pagenav .paging-description b:last-of-type").html() || '1';
@@ -42,10 +41,9 @@ const scrape = async (fanficContext, props) => {
       .then(async function (page) {
         await getArticles(page);
         await timeout(700);
-        }
-      )
+      })
       .catch(function (err) {
-        console.log(`Needle First Page Error!\n${err.message}\n`);
+        console.log(`${err.message}\n`);
       });
   }
 
@@ -66,7 +64,7 @@ const scrape = async (fanficContext, props) => {
         await fanficContext.saveCount(props.collection); // сохранить кол-во новых работ
       })
       .catch(function (err) {
-        console.log(`Needle Last Page Error!\n${err.message}\n`);
+        console.log(`${err.message}\n`);
       });
   }
 
