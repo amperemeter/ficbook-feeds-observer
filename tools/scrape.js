@@ -1,7 +1,6 @@
 const needle = require("needle");
 const cheerio = require("cheerio");
 
-
 const timeout = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -17,7 +16,7 @@ const scrape = async (fanficContext, props) => {
 
   async function getLastPage() {
     await needle('get', `${link}?p=1`, options)
-      .then(async function (res) {
+      .then(async res => {
         const $ = cheerio.load(res.body);
 
         if (!$(".content-section").length) {
@@ -36,20 +35,18 @@ const scrape = async (fanficContext, props) => {
         await timeout(700); // имитируем действия человека
         return page;
       })
-      .then(async function (page) {
+      .then(async page => {
         await getArticles(page);
         await timeout(700);
       })
-      .catch(function (err) {
+      .catch(err => {
         console.log(`${err.message}\n`);
       });
   }
 
   async function getArticles(page) {
     await needle('get', `${link}?p=${page}`, options)
-      .then(async function (res, err) {
-        if (err) throw err;
-
+      .then(async res => {
         const $ = cheerio.load(res.body);
 
         // вычислить количество фанфиков
@@ -61,7 +58,7 @@ const scrape = async (fanficContext, props) => {
         await fanficContext.saveData(props.changedFanfics); // сохранить данные
         await fanficContext.saveCount(props.collection); // сохранить кол-во новых работ
       })
-      .catch(function (err) {
+      .catch(err => {
         console.log(`${err.message}\n`);
       });
   }
