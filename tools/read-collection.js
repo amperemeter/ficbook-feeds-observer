@@ -16,8 +16,9 @@ module.exports.readCollection = async (fanfics, props) => {
     fanficsCopied.push(fanfic);
   }
 
-  for (const fanfic of fanficsCopied) {
-    await scrape(fanfic, props);
+  for (let i = 0; i < fanficsCopied.length; i++) {
+    await scrape(fanficsCopied[i], props);
+    console.log(i + 1);
   }
 
   console.timeEnd("Время работы");

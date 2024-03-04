@@ -18,7 +18,7 @@ module.exports.proto = {
     } else if (difference < 0) {
       console.log(`${this.name}\nудалено ${difference}\n`);
     } else {
-      console.log('нет новых');
+      // console.log('нет новых');
     }
   },
   async saveData(changedFanfics) {
