@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "start2": "node mongo.js",
-    "watch": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "nodemon index.js"
   },
   "dependencies": {
     "assert": "^2.0.0",
