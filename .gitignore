@@ -8,5 +8,5 @@ logs
 *.log 
 
 # Игнорирование файлов 
-#package-lock.json
+package-lock.json
 uri.js
