@@ -16,12 +16,10 @@ const proto = {
     if (difference > 0) {
       console.log(`${this.name}\n${this.url}\nновых ${difference}\n`);
     } else if (difference < 0) {
-      console.log(`${this.name}\nудалено ${Math.abs(difference)}\n`);
+      console.log(`${this.name}\nудалено ${difference}\n`);
+    } else {
+      console.log('нет новых');
     }
-
-    // if (difference === 0) {
-    //   console.log('нет новых'); // для проверки
-    // }
   },
   async saveData(changedFanfics) {
     if (!changedFanfics) return;
