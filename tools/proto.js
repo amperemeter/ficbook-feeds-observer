@@ -1,4 +1,4 @@
-const proto = {
+module.exports.proto = {
   id: '',
   name: '',
   url: '',
@@ -42,5 +42,3 @@ const proto = {
     }
   }
 };
-
-module.exports = proto;

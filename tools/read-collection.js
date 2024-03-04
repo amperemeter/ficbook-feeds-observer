@@ -1,7 +1,7 @@
-const scrape = require("./scrape");
-const proto = require('./proto');
+const {scrape} = require("./scrape");
+const {proto} = require('./proto');
 
-const readCollection = async(fanfics, props) => {
+module.exports.readCollection = async (fanfics, props) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
 
@@ -22,5 +22,3 @@ const readCollection = async(fanfics, props) => {
 
   console.timeEnd("Время работы");
 }
-
-module.exports = readCollection;

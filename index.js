@@ -1,8 +1,8 @@
 const fs = require('file-system');
-const readCollection = require('./tools/read-collection');
+const {readCollection} = require('./tools/read-collection');
 const fanfics = require('./data/fanfics');
 
-(async function() {
+(async () => {
   const changedFanfics = [];
   await readCollection(fanfics, {changedFanfics});
 

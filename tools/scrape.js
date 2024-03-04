@@ -1,18 +1,18 @@
 const needle = require("needle");
 const cheerio = require("cheerio");
 
-const timeout = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-const scrape = async (fanficContext, props) => {
+module.exports.scrape = async (fanficContext, props) => {
   let hotArticles = 0, link = fanficContext.url;
+
+  const timeout = ms => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   const options = {
     open_timeout: 60000,
     user_agent: 'MyApp/1.2.3',
     parse_response: false,
-  }
+  };
 
   async function getLastPage() {
     await needle('get', `${link}?p=1`, options)
@@ -65,5 +65,3 @@ const scrape = async (fanficContext, props) => {
 
   await getLastPage();
 }
-
-module.exports = scrape;

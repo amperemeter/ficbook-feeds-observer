@@ -1,7 +1,7 @@
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
+const {readCollection} = require('./tools/read-collection');
 const uri = require('./data/uri');
-const readCollection = require('./tools/read-collection');
 
 MongoClient.connect(uri, async (err, client) => {
   assert.equal(null, err);
