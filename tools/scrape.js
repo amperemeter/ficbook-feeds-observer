@@ -18,6 +18,7 @@ module.exports.scrape = async (fanficContext, props) => {
     await needle('get', `${link}?p=1`, options)
       .then(async res => {
         const $ = cheerio.load(res.body);
+        await timeout(1000); // имитируем действия человека
 
         if (!$(".content-section").length) {
           throw new Error(`${fanficContext.name}\nнет страницы фэндома`);
@@ -32,12 +33,10 @@ module.exports.scrape = async (fanficContext, props) => {
           hotArticles = blockSeparator.parent('section').children('article').length;
         }
 
-        await timeout(700); // имитируем действия человека
         return page;
       })
       .then(async page => {
         await getArticles(page);
-        await timeout(700);
       })
       .catch(err => {
         console.log(`${err.message}\n`);
@@ -48,6 +47,7 @@ module.exports.scrape = async (fanficContext, props) => {
     await needle('get', `${link}?p=${page}`, options)
       .then(async res => {
         const $ = cheerio.load(res.body);
+        await timeout(1000); // имитируем действия человека
 
         // вычислить количество фанфиков
         const articlesOnLastPage = $(".fanfic-inline").length;
