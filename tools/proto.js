@@ -11,12 +11,12 @@ module.exports.proto = {
     return this.articleCount - this.oldArticleCount;
   },
   checkNew() {
-    const difference = this.isNew();
+    const diff = this.isNew();
 
-    if (difference > 0) {
-      console.log(`${this.name}\n${this.url}\nновых ${difference}\n`);
-    } else if (difference < 0) {
-      console.log(`${this.name}\nудалено ${difference}\n`);
+    if (diff > 0) {
+      console.log(`${this.name}\n${this.url}\nновых ${diff}\n`);
+    } else if (diff < 0) {
+      console.log(`${this.name}\nудалено ${diff}\n`);
     } else {
       // console.log('нет новых'); // для проверки
     }
