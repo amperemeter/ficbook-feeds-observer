@@ -8,6 +8,15 @@ module.exports.readCollection = async (fanfics, props) => {
 
   const fanficsCopied = [], noPages = [], noFanfics = [];
 
+  fanfics.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    } else if (a.name < b.name) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
 
   for (let i = 0; i < fanfics.length; i++) {
     const fanfic = Object.assign({}, proto);
