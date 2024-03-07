@@ -4,6 +4,7 @@ const fanfics = require('./data/fanfics');
 
 (async () => {
   const changedFanfics = [];
+
   await readCollection(fanfics, {changedFanfics});
 
   if (fanfics.length === changedFanfics.length) {

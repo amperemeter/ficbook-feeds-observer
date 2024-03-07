@@ -5,7 +5,7 @@ const uri = require('./data/uri');
 
 MongoClient.connect(uri, async (err, client) => {
   assert.equal(null, err);
-  const collection = client.db('fanficsdb').collection('fanfics');
+  const collection = client.db('f anficsdb').collection('fanfics');
   const fanfics = await collection.find({}).toArray();
 
   await readCollection(fanfics, {collection});
