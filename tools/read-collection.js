@@ -6,9 +6,9 @@ module.exports.readCollection = async (fanfics, props) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
 
-  const fanficsCopied = [], noPages = [], noFanfics = [];
-
   fanfics.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0);
+
+  const fanficsCopied = [], noPages = [], noFanfics = [];
 
   for (let i = 0; i < fanfics.length; i++) {
     const fanfic = Object.assign({}, proto);
