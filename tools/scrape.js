@@ -53,13 +53,13 @@ module.exports.scrape = async (fanficContext, props) => {
         const articlesOnLastPage = $(".fanfic-inline").length;
         const articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
 
-        if (articles) {
+        if (!articles && !fanficContext.oldArticleCount) {
+          console.log(`${fanficContext.name}\nнет работ\n`);
+        } else {
           await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
           await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
           await fanficContext.saveData(props.changedFanfics); // сохранить данные
           await fanficContext.saveCount(props.collection); // сохранить кол-во новых работ
-        } else {
-          console.log(`${fanficContext.name}\nнет работ\n`);
         }
       })
       .catch(err => {
