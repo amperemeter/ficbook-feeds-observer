@@ -7,6 +7,7 @@ module.exports.readCollection = async (fanfics, props) => {
   console.time("Время работы");
 
   const fanficsCopied = [], noPages = [], noFanfics = [];
+
   fanfics.sort((a, b) => a.name > b.name ? 1 : a.name < b.name ? -1 : 0);
 
   for (let i = 0; i < fanfics.length; i++) {
