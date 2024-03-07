@@ -28,12 +28,14 @@ module.exports.readCollection = async (fanfics, props) => {
 
   if (noPages.length) {
     console.log(`нет страниц: ${noPages.length}`);
-    console.log(`${noPages}\n`);
+    console.log(noPages);
+    console.log('\n');
   }
 
   if (noFanfics.length) {
     console.log(`нет работ: ${noFanfics.length}`);
-    console.log(`${noFanfics}\n`);
+    console.log(noFanfics);
+    console.log('\n');
   }
 
   console.timeEnd("Время работы");
