@@ -1,11 +1,13 @@
 const {scrape} = require("./scrape");
 const {proto} = require('./proto');
 
+
 module.exports.readCollection = async (fanfics, props) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
 
-  const fanficsCopied = [];
+  const fanficsCopied = [], noPages = [], noFanfics = [];
+
 
   for (let i = 0; i < fanfics.length; i++) {
     const fanfic = Object.assign({}, proto);
@@ -17,8 +19,21 @@ module.exports.readCollection = async (fanfics, props) => {
   }
 
   for (let i = 0; i < fanficsCopied.length; i++) {
-    await scrape(fanficsCopied[i], props);
-    // console.log(i + 1);
+    const res = await scrape(fanficsCopied[i], props);
+
+    if (res) {
+      res.noPage ? noPages.push(res.noPage) : noFanfics.push(res.noFic);
+    }
+  }
+
+  if (noPages.length) {
+    console.log(`нет страниц: ${noPages.length}`);
+    console.log(`${noPages}\n`);
+  }
+
+  if (noFanfics.length) {
+    console.log(`нет работ: ${noFanfics.length}`);
+    console.log(`${noFanfics}\n`);
   }
 
   console.timeEnd("Время работы");

@@ -2,7 +2,7 @@ const needle = require("needle");
 const cheerio = require("cheerio");
 
 module.exports.scrape = async (fanficContext, props) => {
-  let hotArticles = 0, link = fanficContext.url;
+  let hotArticles = 0, link = fanficContext.url, empty = '';
 
   const timeout = ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -21,22 +21,24 @@ module.exports.scrape = async (fanficContext, props) => {
         await timeout(1000); // имитируем действия человека
 
         if (!$(".content-section").length) {
-          throw new Error(`${fanficContext.name}\nнет страницы фэндома`);
+          empty = {noPage: fanficContext.name};
+        } else {
+          const page = $(".pagenav .paging-description b:last-of-type").html() || '1';
+
+          // проверить наличие блока с "горячими работами"
+          const blockSeparator = $(".block-separator");
+
+          if (blockSeparator.length) {
+            hotArticles = blockSeparator.parent('section').children('article').length;
+          }
+
+          return page;
         }
-
-        const page = $(".pagenav .paging-description b:last-of-type").html() || '1';
-
-        // проверить наличие блока с "горячими работами"
-        const blockSeparator = $(".block-separator");
-
-        if (blockSeparator.length) {
-          hotArticles = blockSeparator.parent('section').children('article').length;
-        }
-
-        return page;
       })
       .then(async page => {
-        await getArticles(page);
+        if (page) {
+          await getArticles(page);
+        }
       })
       .catch(err => {
         console.log(`${err.message}\n`);
@@ -54,7 +56,7 @@ module.exports.scrape = async (fanficContext, props) => {
         const articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
 
         if (!articles && !fanficContext.oldArticleCount) {
-          console.log(`${fanficContext.name}\nнет работ\n`);
+          empty = {noFic: fanficContext.name};
         } else {
           await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
           await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
@@ -68,4 +70,5 @@ module.exports.scrape = async (fanficContext, props) => {
   }
 
   await getLastPage();
+  return empty;
 }
