@@ -31,9 +31,9 @@ module.exports.readCollection = async (fanfics, props) => {
     const obj = {};
     emptyFandoms.forEach((item) => (obj[item[0]] = item[1]));
 
-    console.log(`Нет работ: ${emptyFandoms.length}`);
-    console.log(obj);
-    console.log("\n");
+    console.log(`Нет работ: ${emptyFandoms.length}\n`);
+    // console.log(obj);
+    // console.log("\n");
   }
 
   console.timeEnd("Время работы");
