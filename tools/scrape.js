@@ -60,15 +60,17 @@ module.exports.scrape = async (fanficContext, props) => {
         const articlesOnLastPage = $(".fanfic-inline").length;
         let articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
 
-        if (!articles && !fanficContext.oldArticleCount) {
-          noFic = { fic: [fanficContext.name, fanficContext.url] };
-        } else if (!articles && fanficContext.oldArticleCount) {
+        if (!articles && fanficContext.oldArticleCount) {
           await askCheck(fanficContext);
           const answer = await askDelete();
 
           if (answer === "н") {
             articles = fanficContext.oldArticleCount;
           }
+        }
+
+        if (!articles) {
+          noFic = { fic: [fanficContext.name, fanficContext.url] };
         }
 
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount

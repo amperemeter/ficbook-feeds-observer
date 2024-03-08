@@ -4,7 +4,9 @@ module.exports.askCheck = async (fanficContext) => {
   const rl = readline.createInterface({ input, output });
 
   const ask = async () => {
-    const answer = await rl.question(`В фэндоме нет работ. Проверить? (д/н) `);
+    const answer = await rl.question(
+      `В фэндоме "${fanficContext.name}" нет работ. Проверить? (д/н) `,
+    );
 
     if (answer === "д") {
       console.log(`${fanficContext.url}\n`);
@@ -28,9 +30,9 @@ module.exports.askDelete = async () => {
     answer = await rl.question(`Перезаписать количество работ? (д/н) `);
 
     if (answer === "д") {
-      console.log("Перезаписано\n");
+      console.log("перезаписано\n");
     } else if (answer === "н") {
-      console.log("Не перезаписано\n");
+      console.log("не перезаписано\n");
     } else {
       await ask();
     }
