@@ -5,7 +5,8 @@ const { askCheck, askDelete } = require("./utils");
 module.exports.scrape = async (fanficContext, props) => {
   let hotArticles = 0,
     link = fanficContext.url,
-    empty = "";
+    noPage = "",
+    noFic = "";
 
   const timeout = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -24,7 +25,7 @@ module.exports.scrape = async (fanficContext, props) => {
         await timeout(1000); // имитируем действия человека
 
         if (!$(".content-section").length) {
-          empty = { noPage: fanficContext.name };
+          noPage = { page: [fanficContext.name, fanficContext.url] };
         }
 
         const page =
@@ -60,7 +61,7 @@ module.exports.scrape = async (fanficContext, props) => {
         let articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
 
         if (!articles && !fanficContext.oldArticleCount) {
-          empty = { noFic: fanficContext.name };
+          noFic = { fic: [fanficContext.name, fanficContext.url] };
         } else if (!articles && fanficContext.oldArticleCount) {
           await askCheck(fanficContext);
           const answer = await askDelete();
@@ -81,5 +82,5 @@ module.exports.scrape = async (fanficContext, props) => {
   }
 
   await getLastPage();
-  return empty;
+  return noPage || noFic;
 };
