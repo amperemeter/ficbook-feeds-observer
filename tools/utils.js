@@ -29,11 +29,9 @@ module.exports.askDelete = async () => {
   const ask = async () => {
     answer = await rl.question(`Перезаписать количество работ? (д/н) `);
 
-    if (answer === "д") {
-      console.log("перезаписано\n");
-    } else if (answer === "н") {
+    if (answer === "н") {
       console.log("не перезаписано\n");
-    } else {
+    } else if (answer !== "д") {
       await ask();
     }
 
