@@ -30,7 +30,7 @@ module.exports.readCollection = async (fanfics, props) => {
 
   if (emptyPages.length) {
     const obj = {};
-    console.log(`нет страниц: ${emptyPages.length}`);
+    console.log(`Нет страниц: ${emptyPages.length}`);
     emptyPages.forEach((item) => (obj[item[0]] = item[1]));
     console.log(obj);
     console.log("\n");
@@ -38,7 +38,7 @@ module.exports.readCollection = async (fanfics, props) => {
 
   if (emptyFandoms.length) {
     const obj = {};
-    console.log(`нет работ: ${emptyFandoms.length}`);
+    console.log(`Нет работ: ${emptyFandoms.length}`);
     emptyFandoms.forEach((item) => (obj[item[0]] = item[1]));
     console.log(obj);
     console.log("\n");
