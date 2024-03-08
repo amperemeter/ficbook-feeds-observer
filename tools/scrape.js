@@ -5,7 +5,6 @@ const { askCheck, askDelete } = require("./utils");
 module.exports.scrape = async (fanficContext, props) => {
   let hotArticles = 0,
     link = fanficContext.url,
-    noPage = "",
     noFic = "";
 
   const timeout = (ms) => {
@@ -23,10 +22,6 @@ module.exports.scrape = async (fanficContext, props) => {
       .then(async (res) => {
         const $ = cheerio.load(res.body);
         await timeout(1000); // имитируем действия человека
-
-        if (!$(".content-section").length) {
-          noPage = { page: [fanficContext.name, fanficContext.url] };
-        }
 
         const page =
           $(".pagenav .paging-description b:last-of-type").html() || "1";
@@ -69,8 +64,8 @@ module.exports.scrape = async (fanficContext, props) => {
           }
         }
 
-        if (!articles) {
-          noFic = { fic: [fanficContext.name, fanficContext.url] };
+        if (!articles || !$(".content-section").length) {
+          noFic = [fanficContext.name, fanficContext.url];
         }
 
         await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
@@ -84,5 +79,5 @@ module.exports.scrape = async (fanficContext, props) => {
   }
 
   await getLastPage();
-  return noPage || noFic;
+  return noFic;
 };

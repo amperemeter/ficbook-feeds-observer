@@ -6,7 +6,6 @@ module.exports.readCollection = async (fanfics, props) => {
   console.time("Время работы");
 
   const fanficsCopied = [],
-    emptyPages = [],
     emptyFandoms = [];
 
   fanfics.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
@@ -24,22 +23,15 @@ module.exports.readCollection = async (fanfics, props) => {
     const res = await scrape(fanficsCopied[i], props);
 
     if (res) {
-      res.page ? emptyPages.push(res.page) : emptyFandoms.push(res.fic);
+      emptyFandoms.push(res);
     }
-  }
-
-  if (emptyPages.length) {
-    const obj = {};
-    console.log(`Нет страниц: ${emptyPages.length}`);
-    emptyPages.forEach((item) => (obj[item[0]] = item[1]));
-    console.log(obj);
-    console.log("\n");
   }
 
   if (emptyFandoms.length) {
     const obj = {};
-    console.log(`Нет работ: ${emptyFandoms.length}`);
     emptyFandoms.forEach((item) => (obj[item[0]] = item[1]));
+
+    console.log(`Нет работ: ${emptyFandoms.length}`);
     console.log(obj);
     console.log("\n");
   }
