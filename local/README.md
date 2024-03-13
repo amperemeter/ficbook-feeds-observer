@@ -23,7 +23,7 @@
    него и количеством фанфиков в значении 0.
 
 * Выглядеть должно
-  так: `{ "name": "Гарри Поттер", "url": "https://ficbook.net/fanfiction/books/harri_potter", "count": 0 }`.
+  так: `{ "name": "Наруто", "url": "https://ficbook.net/fanfiction/anime_and_manga/naruto", "count": 0 }`.
 * В ссылке на пэйринг необходимо закодировать кириллицу в кодировке UTF-8 . Пример
   ссылки: `https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0`).
 * В самом файле имеется пример того, как должны выглядеть данные.
