@@ -1,15 +1,13 @@
-const fs = require('file-system');
-const {readCollection} = require('./tools/read-collection');
-const fanfics = require('./data/fanfics');
+const assert = require("assert");
+const MongoClient = require("mongodb").MongoClient;
+const { readCollection } = require("./tools/read-collection");
+const uri = require("./data/uri");
 
-(async () => {
-  const changedFanfics = [];
+MongoClient.connect(uri, async (err, client) => {
+  assert.equal(null, err);
+  const collection = client.db("fanficsdb").collection("fanfics");
+  const fanfics = await collection.find({}).toArray();
 
-  await readCollection(fanfics, {changedFanfics});
-
-  if (fanfics.length === changedFanfics.length) {
-    await fs.writeFileSync('./data/fanfics.json', JSON.stringify(changedFanfics, null, 2));
-  } else {
-    console.log("Ошибка. Данные не могут быть сохранены");
-  }
-})();
+  await readCollection(fanfics, { collection });
+  await client.close(); // закрыть подключение с БД
+});
