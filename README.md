@@ -38,16 +38,16 @@ https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0
 1. Создайте в корне проекта папку `data`. 
 2. Создайте внутри папки `data` файл `uri.js`. 
 3. Добавьте в файле `uri.js` строку:
-   `
-   module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";
-   `
+`
+module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";
+`
 5. В этой же строке поменяйте значения `[username]`, `[password]`, `[clustername]` на ваши значения. 
 6. Добавьте в файле `index.js` строки:
-`js
+```js
 const parser = require("ficbook-feeds-parser/mongo");
 const data = require('./data/uri');
 parser(data);
-`
+```
   
 ### Использование парсера
 Запустить парсер в терминале стандартной командой `[node index]` или `[node .]`. Первый запуск парсера добавит количество фанфиков в базу данных. 
