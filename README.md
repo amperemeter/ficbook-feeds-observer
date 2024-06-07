@@ -25,22 +25,16 @@
 3. Создайте юзера со всеми правами. 
 4. Создайте в `fanfics` объекты c названием нужного вам фэндома или пэринга, ссылкой на него и количеством фанфиков в значении 0.
 - Выглядеть должно так:
-`
-{ "_id": {"$oid": "5fbd52194c8f4b6314d6b5e1"}, "name": "Гарри Поттер", "url": "https://ficbook.net/fanfiction/books/harri_potter", "count": 0 }
-`
+  `{ "_id": {"$oid": "5fbd52194c8f4b6314d6b5e1"}, "name": "Гарри Поттер", "url": "https://ficbook.net/fanfiction/books/harri_potter", "count": 0 }`
 - ID создается автоматически.
-- В ссылке на пэйринг закодируйте кириллицу в кодировке UTF-8 . Пример ссылки: 
-`
-https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0
-`
+- В ссылке на пэйринг закодируйте кириллицу в кодировке UTF-8 . Пример ссылки:
+  `https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0`
 
 ### Подключение базы данных
 1. Создайте в корне проекта папку `data`. 
 2. Создайте внутри папки `data` файл `uri.js`. 
 3. Добавьте в файле `uri.js` строку:
-`
-module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";
-`
+   `module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";`
 5. В этой же строке поменяйте значения `[username]`, `[password]`, `[clustername]` на ваши значения. 
 6. Добавьте в файле `index.js` строки:
 ```js
