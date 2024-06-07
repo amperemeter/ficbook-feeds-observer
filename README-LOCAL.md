@@ -35,7 +35,7 @@
 #### Использовать данные
 7. Добавить в файле `index.js` строки:
    * `const data = require('./data/fanfics');`
-   * `await parser(data);`
+   * `parser(data);`
 
 #### Запустить парсер
 
