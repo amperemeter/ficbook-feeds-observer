@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "author": "amperemeter",
+  "description": "Parser of new jobs at Ficbook.net",
   "scripts": {
     "start": "node index.js",
     "start2": "node mongo.js",
@@ -16,5 +17,9 @@
     "file-system": "^2.2.2",
     "needle": "^2.5.2",
     "mongodb": "4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amperemeter/ficbook-feeds-parser.git"
   }
 }
