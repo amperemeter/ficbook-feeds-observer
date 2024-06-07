@@ -16,19 +16,19 @@
 1. Создайте в корне проекта папку `data`.
 2. Создайте внутри папки `data` файл `fanfics.json`. 
 3. Создайте в файле `fanfics.json` объекты с названием нужного вам фэндома или пэйринга, ссылкой на него и количеством фанфиков в значении 0.
-* Выглядеть должно так: `{ "name": "Наруто", "url": "https://ficbook.net/fanfiction/anime_and_manga/naruto", "count": 0 }`.
+* Объект должен выглядеть так: `{ "name": "Наруто", "url": "https://ficbook.net/fanfiction/anime_and_manga/naruto", "count": 0 }`.
 * В ссылке на пэйринг необходимо закодировать кириллицу в кодировке UTF-8. Пример ссылки: 
 `https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0`).
 * [Пример](./example.json) того, как должно быть.
 
 ### Использование данных
-7. Пропишите в файле `index.js` строки:
+Пропишите в файле `index.js` строки:
 * `const parser = require("ficbook-feeds-parser/local");`
 * `const data = require('./data/fanfics');`
 * `parser(data);`
 
 ## Запуск парсера
-8. Запустить парсер в терминале командой `node .` или `node index`.
+Запустить парсер в терминале командой `node .` или `node index`.
 
 ## Хранение данных в Mongodb
 При желании вы можете хранить данные не локально в файле `fanfics.json`, а в базе данных в облачном хранилище.
