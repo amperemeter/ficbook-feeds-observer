@@ -16,7 +16,7 @@
 3. Инициализировать проект nodejs, введя в терминале (cmd в Windows) команду `[npm init]`. Вы
    должны находиться в корне проекта.
 4. Установить парсер, введя команду `[npm install ficbook-feeds-parser]`.
-5. Подключить парсер в файле `index.js`: `const parser = require("ficbook-feeds-parser");`
+5. Подключить парсер, добавив в файле `index.js` строку `const parser = require("ficbook-feeds-parser");`
 
 #### Создать базу данных
 
@@ -34,7 +34,7 @@
 
 #### Подключить базу данных
 
-8. Добавить в файле `index.js` строку: `parser("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
+8. Добавить в файле `index.js` строку `parser("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
 9. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения.
 
 #### Запустить парсер
