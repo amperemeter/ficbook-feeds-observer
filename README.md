@@ -16,7 +16,7 @@
 3. Инициализировать проект nodejs, введя в терминале (cmd в Windows) команду `[npm init]`. Вы
    должны находиться в папке проекта.
 4. Установить парсер, введя команду `[npm install ficbook-feeds-parser]`.
-5. Подключить проект к парсеру в файле `index.js`: `const app = require("ficbook-feeds-parser");`
+5. Подключить пакет в файле `index.js`: `const app = require("ficbook-feeds-parser");`
 
 #### Создать базу данных
 
