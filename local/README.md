@@ -29,8 +29,8 @@
 
 #### Использовать данные
 7. Добавить в файле `index.js` строки:
-   `const fanfics = require('./data/fanfics');`
-   `require("ficbook-feeds-parser/local")(fanfics);`
+   * `const fanfics = require('./data/fanfics');`
+   * `require("ficbook-feeds-parser/local")(fanfics);`
 
 #### Запустить парсер
 
