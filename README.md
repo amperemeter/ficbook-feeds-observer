@@ -46,7 +46,12 @@ npm install ficbook-feeds-parser
 1. Создайте в корне проекта папку `data`.
 2. Создайте внутри папки `data` файл `uri.js`.
 3. Пропишите в файле `uri.js` строку:
-   `module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";`
+
+```
+module.exports = "mongodb+srv://<username>:<password>@<clustername>
+.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";
+```
+
 5. В этой же строке поменяйте значения `username`, `password`, `clustername` на ваши значения.
 6. Пропишите в файле `index.js` строки:
 
