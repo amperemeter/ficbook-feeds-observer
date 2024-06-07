@@ -11,10 +11,12 @@
 
 #### Создать проект
 
-1. Установить на компьютер `Nodejs`.
-2. Скачать файлы из репозитория.
-3. Установить необходимые для работы парсера пакеты, введя в терминале (cmd в Windows) команду `[npm install]`. Вы
+1. Создать папку на компьютере с любым названием.
+2. Создать внутри папки файл `index.js`.
+3. Инициализировать проект nodejs, введя в терминале (cmd в Windows) команду `[npm init]`. Вы
    должны находиться в папке проекта.
+4. Установить парсер, введя команду `[npm install ficbook-feeds-parser]`.
+5. Подключить проект к парсеру в файле `index.js`: `const app = require("ficbook-feeds-parser");`
 
 #### Создать базу данных
 
@@ -30,10 +32,9 @@
 * В ссылке на пэйринг необходимо закодировать кириллицу в кодировке UTF-8 . Пример
   ссылки: `https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0`).
 
-#### Подключиться к базе данных
+#### Подключить базу данных
 
-8. Заменить в файле [index.js](index.js) строку `[uri = require('./uri');]` на
-   строку `[uri = 'mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";]`
+8. Добавить в файле `index.js` строку `app("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
 9. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения.
 
 #### Запустить парсер
