@@ -31,9 +31,11 @@
 
 Пропишите в файле `index.js` строки:
 
-* `const parser = require("ficbook-feeds-parser/local");`
-* `const data = require('./data/fanfics');`
-* `parser(data);`
+```
+const parser = require("ficbook-feeds-parser/local");
+const data = require('./data/fanfics');
+parser(data);
+```
 
 ## Запуск парсера
 

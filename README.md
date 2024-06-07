@@ -16,17 +16,14 @@
 2. Создайте внутри папки файл `index.js`.
 3. Находясь в корне проекта, введите в терминале (cmd в Windows) команду:
 
-```js 
-npm
-init
+```
+npm init
 ```
 
 4. Установите парсер, введя команду:
 
-```js
-npm
-install
-ficbook - feeds - parser
+```
+npm install ficbook-feeds-parser
 ```
 
 ### Создание базы данных
@@ -53,7 +50,7 @@ ficbook - feeds - parser
 5. В этой же строке поменяйте значения `username`, `password`, `clustername` на ваши значения.
 6. Пропишите в файле `index.js` строки:
 
-```js
+```
 const parser = require("ficbook-feeds-parser");
 const data = require('./data/uri');
 parser(data);
