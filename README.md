@@ -16,7 +16,7 @@
 3. Инициализировать проект nodejs, введя в терминале (cmd в Windows) команду `[npm init]`. Вы
    должны находиться в корне проекта.
 4. Установить парсер, введя команду `[npm install ficbook-feeds-parser]`.
-5. Подключить парсер, добавив в файле `index.js` строку `const parser = require("ficbook-feeds-parser");`
+5. Подключить парсер, добавив в файле `index.js` строку `const parser = require("ficbook-feeds-parser/mongo");`
 
 #### Создать базу данных
 
@@ -34,17 +34,22 @@
 
 #### Подключить базу данных
 
-8. Добавить в файле `index.js` строку `parser("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
-9. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения.
-
+8. Создать в корне проекта папку `data`. 
+9. Создать внутри папки `data` файл `uri.js`. 
+10. Добавить в файле `uri.js` строку `module.exports = "mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";`
+11. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения. 
+12. Добавить в файле `index.js` строки:
+* `const data = require('./data/uri');`
+* `await parser(data);`
+* 
 #### Запустить парсер
 
-10. Запустить парсер в терминале стандартной командой `[node index]` или `[node .]`. Первый запуск парсера добавит количество фанфиков
+13. Запустить парсер в терминале стандартной командой `[node index]` или `[node .]`. Первый запуск парсера добавит количество фанфиков
     в базу данных. Последующие запуски отобразят количество новых фанфиков при их наличии.
 
 ## Хранение данных локально
 
-При желании вы можете хранить данные не в базе данных, а локально в файле `fanfics.json`. Для этого воспользуйтесь [следующей инструкцией](local/README.md).
+При желании вы можете хранить данные не в базе данных, а локально в файле `fanfics.json`. Для этого воспользуйтесь [следующей инструкцией](./README-LOCAL.md).
 
 ## ВАЖНО!
 
