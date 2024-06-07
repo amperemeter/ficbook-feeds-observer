@@ -34,7 +34,7 @@
 
 #### Подключить базу данных
 
-8. Добавить в файле `index.js` строку `parser("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
+8. Добавить в файле `index.js` строку: `parser("mongodb+srv://<username>:<password>@<clustername>.xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>")`
 9. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения.
 
 #### Запустить парсер
