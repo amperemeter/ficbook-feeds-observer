@@ -40,7 +40,7 @@
 11. В этой же строке необходимо поменять значения `[username]`, `[password]`, `[clustername]` на ваши значения. 
 12. Добавить в файле `index.js` строки:
 * `const data = require('./data/uri');`
-* `await parser(data);`
+* `parser(data);`
   
 #### Запустить парсер
 
