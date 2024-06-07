@@ -1,5 +1,5 @@
 const fs = require("file-system");
-const { readCollection } = require("./tools/read-collection");
+const { readCollection } = require("../tools/read-collection");
 
 const app = async (fanfics) => {
   const changedFanfics = [];

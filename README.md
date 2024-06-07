@@ -54,7 +54,7 @@ ficbook - feeds - parser
 6. Пропишите в файле `index.js` строки:
 
 ```js
-const parser = require("ficbook-feeds-parser/mongo");
+const parser = require("ficbook-feeds-parser");
 const data = require('./data/uri');
 parser(data);
 ```

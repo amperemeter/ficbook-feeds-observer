@@ -25,7 +25,7 @@
   так: `{ "name": "Наруто", "url": "https://ficbook.net/fanfiction/anime_and_manga/naruto", "count": 0 }`.
 * В ссылке на пэйринг необходимо закодировать кириллицу в кодировке UTF-8. Пример ссылки:
   `https://ficbook.net/pairings/%D0%9D%D1%83%D0%B0%D0%B4%D0%B0---%D0%9D%D1%83%D0%B0%D0%BB%D0%B0`).
-* [Пример](../example.json) того, как должно быть.
+* [Пример](example.json) того, как должно быть.
 
 ### Использование данных
 

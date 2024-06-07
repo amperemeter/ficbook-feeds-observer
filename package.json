@@ -1,14 +1,14 @@
 {
   "name": "ficbook-feeds-parser-test",
-  "version": "1.0.2",
-  "main": "mongo.js",
+  "version": "1.0.0",
+  "main": "index.js",
   "license": "MIT",
   "author": "amperemeter",
   "description": "Parser of new jobs at Ficbook.net",
   "scripts": {
-    "start": "node mongo.js",
-    "start2": "node mongo.js",
-    "watch": "nodemon mongo.js",
+    "start": "node index.js",
+    "start2": "node index.js",
+    "watch": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
