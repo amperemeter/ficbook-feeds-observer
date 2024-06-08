@@ -1,6 +1,6 @@
 {
   "name": "ficbook-feeds-parser-test",
-  "version": "1.0.6",
+  "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "author": "amperemeter",
@@ -21,5 +21,12 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amperemeter/ficbook-feeds-observer.git"
-  }
+  },
+  "keywords": [
+    "ficbook",
+    "ficbook parser",
+    "ficbook feeds",
+    "фикбук",
+    "книга фанфиков"
+  ]
 }
