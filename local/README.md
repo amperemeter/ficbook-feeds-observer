@@ -34,9 +34,9 @@
 1. Создайте в корне проекта файл `index.js` и пропишите там строки:
 
 ```
-const observer = require("ficbook-feeds-observer/local");
+const observe = require("ficbook-feeds-observer/local");
 const data = require('./data/fanfics');
-observer(data);
+observe(data);
 ```
 
 2. Запустите парсер стандартной командой `node index` или `node .` в терминале.

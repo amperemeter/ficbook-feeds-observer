@@ -59,9 +59,9 @@ module.exports = "mongodb+srv://<username>:<password>@<clustername>
 1. Создайте в корне проекта файл `index.js` и пропишите там строки:
 
 ```
-const observer = require("ficbook-feeds-observer");
+const observe = require("ficbook-feeds-observer");
 const data = require('./data/uri');
-observer(data);
+observe(data);
 ```
 
 2. Запустите парсер стандартной командой `node index` или `node .` в терминале. Первый запуск парсера добавит количество
