@@ -13,14 +13,13 @@
 ### Создание проекта
 
 1. Создайте на компьютере папку с любым названием.
-2. Создайте внутри папки файл `index.js`.
-3. Находясь в корне проекта, введите в терминале (cmd в Windows) команду:
+2. Находясь в корне проекта, введите в терминале (cmd в Windows) команду:
 
 ```
 npm init
 ```
 
-4. Установите парсер, введя команду:
+3. Установите парсер, введя команду:
 
 ```
 npm install ficbook-feeds-parser
@@ -52,8 +51,8 @@ module.exports = "mongodb+srv://<username>:<password>@<clustername>
 .xmsaf.mongodb.net/?retryWrites=true&w=majority&appName=<Clustername>";
 ```
 
-5. В этой же строке поменяйте значения `username`, `password`, `clustername` на ваши значения.
-6. Пропишите в файле `index.js` строки:
+4. В этой же строке поменяйте значения `username`, `password`, `clustername` на ваши значения.
+5. Создайте в корне проекта файл `index.js` и пропишите там строки:
 
 ```
 const parser = require("ficbook-feeds-parser");
