@@ -24,7 +24,7 @@ module.exports.scrape = async (fanficContext, props) => {
         await timeout(1000); // имитируем действия человека
 
         const page =
-          $(".pagenav .paging-description b:last-of-type").html() || "1";
+          Number($(".pagenav .paging-description b:last-of-type").html()) || 1;
 
         // проверить наличие блока с "горячими работами"
         const blockSeparator = $(".block-separator");
@@ -53,8 +53,14 @@ module.exports.scrape = async (fanficContext, props) => {
 
         // вычислить количество фанфиков
         const articlesOnLastPage = $(".fanfic-inline").length;
-        let articles = (page - 1) * 20 + articlesOnLastPage - hotArticles;
+        let articles = (page - 1) * 20 + articlesOnLastPage;
 
+        if (page === 1) {
+          articles = articles - hotArticles;
+        }
+
+        // если нет фанфиков, но до этого они были,
+        // спрашиваем об изменении количества фанфиков в бд
         if (!articles && fanficContext.oldArticleCount) {
           await askCheck(fanficContext);
           const answer = await askDelete();
