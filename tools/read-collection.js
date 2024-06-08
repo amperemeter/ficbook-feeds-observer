@@ -16,6 +16,7 @@ module.exports.readCollection = async (fanfics, props) => {
     fanfic.name = fanfics[i].name;
     fanfic.url = fanfics[i].url;
     fanfic.oldArticleCount = fanfics[i].count;
+    fanfic.oldLastArticleName = fanfics[i].article;
     fanficsCopied.push(fanfic);
   }
 

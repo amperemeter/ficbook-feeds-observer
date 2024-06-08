@@ -1,9 +1,13 @@
 module.exports.proto = {
-  id: '',
-  name: '',
-  url: '',
+  id: "",
+  name: "",
+  url: "",
+  lastArticleName: "",
   oldArticleCount: 0,
   articleCount: 0,
+  setLastArticleName(lastArticleName) {
+    this.lastArticleName = lastArticleName;
+  },
   setArticleCount(count) {
     this.articleCount = count;
   },
@@ -21,24 +25,40 @@ module.exports.proto = {
       // console.log('нет новых'); // для проверки
     }
   },
-  async saveData(changedFanfics) {
+  async saveLocalData(changedFanfics) {
     if (!changedFanfics) return;
 
-    changedFanfics.push({
-        "name": this.name,
-        "url": this.url,
-        "count": this.articleCount
-      });
+    const item = {
+      name: this.name,
+      url: this.url,
+      count: this.articleCount,
+    };
+
+    if (!!this.lastArticleName) {
+      item.article = this.lastArticleName;
+    }
+
+    changedFanfics.push(item);
   },
-  async saveCount(collection) {
+  async saveDataBase(collection) {
     try {
       if (!collection) return;
 
       if (this.isNew()) {
-        await collection.updateOne({url: this.url}, {$set: {count: this.articleCount}});
+        await collection.updateOne(
+          { url: this.url },
+          { $set: { count: this.articleCount } },
+        );
+      }
+
+      if (!!this.lastArticleName) {
+        await collection.updateOne(
+          { url: this.url },
+          { $set: { article: this.lastArticleName } },
+        );
       }
     } catch (err) {
       throw new Error(err);
     }
-  }
+  },
 };

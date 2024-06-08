@@ -60,10 +60,18 @@ module.exports.scrape = async (fanficContext, props) => {
         }
 
         if (articles === 20000) {
-          console.log(
-            `В фэндоме ${fanficContext.name} 20000 или более работ. ` +
-              `Проверьте наличие новых работа самостоятельно.\n${fanficContext.url}`,
-          );
+          const lastArticleName = $(".fanfic-inline-title a")
+            .last()
+            .text()
+            .trim();
+
+          if (fanficContext.oldLastArticleName !== lastArticleName) {
+            fanficContext.setLastArticleName(lastArticleName);
+
+            console.log(
+              `${fanficContext.name}\n${fanficContext.url}\nесть новые работы\n`,
+            );
+          }
         }
 
         // если нет фанфиков, но до этого они были,
@@ -81,10 +89,10 @@ module.exports.scrape = async (fanficContext, props) => {
           noFic = [fanficContext.name, fanficContext.url];
         }
 
-        await fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
-        await fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
-        await fanficContext.saveData(props.changedFanfics); // сохранить данные
-        await fanficContext.saveCount(props.collection); // сохранить кол-во новых работ
+        fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
+        fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
+        await fanficContext.saveLocalData(props.changedFanfics); // сохранить данные
+        await fanficContext.saveDataBase(props.collection); // сохранить кол-во новых работ
       })
       .catch((err) => {
         console.log(`${err.message}\n`);
