@@ -1,4 +1,4 @@
-# Ficbook Feeds Parser
+# Ficbook Feeds Observer
 
 Парсер для сайта [ficbook.net](https://ficbook.net), отслеживающий появление новых фанфиков в выбранных фандомах и
 пэйрингах.
@@ -22,7 +22,7 @@ npm init
 3. Установите парсер, введя команду:
 
 ```
-npm install ficbook-feeds-parser
+npm install ficbook-feeds-observer
 ```
 
 ### Создание базы данных
@@ -54,9 +54,9 @@ module.exports = "mongodb+srv://<username>:<password>@<clustername>
 4. Создайте в корне проекта файл `index.js` и пропишите там строки:
 
 ```
-const parser = require("ficbook-feeds-parser");
+const observer = require("ficbook-feeds-observer");
 const data = require('./data/uri');
-parser(data);
+observer(data);
 ```
 
 ## Запуск парсера

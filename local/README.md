@@ -1,4 +1,4 @@
-# Ficbook Feeds Parser
+# Ficbook Feeds Observer
 
 Парсер для сайта [ficbook.net](https://ficbook.net), отслеживающий появление новых фанфиков в выбранных фандомах или
 пэйрингах.
@@ -31,9 +31,9 @@
 Создайте в корне проекта файл `index.js` и пропишите там строки:
 
 ```
-const parser = require("ficbook-feeds-parser/local");
+const observer = require("ficbook-feeds-observer/local");
 const data = require('./data/fanfics');
-parser(data);
+observer(data);
 ```
 
 ## Запуск парсера
