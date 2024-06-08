@@ -59,6 +59,13 @@ module.exports.scrape = async (fanficContext, props) => {
           articles = articles - hotArticles;
         }
 
+        if (articles === 20000) {
+          console.log(
+            `В фэндоме ${fanficContext.name} 20000 или более работ. ` +
+              `Проверьте наличие новых работа самостоятельно.\n${fanficContext.url}`,
+          );
+        }
+
         // если нет фанфиков, но до этого они были,
         // спрашиваем об изменении количества фанфиков в бд
         if (!articles && fanficContext.oldArticleCount) {
