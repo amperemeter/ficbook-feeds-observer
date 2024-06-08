@@ -68,7 +68,7 @@ module.exports.scrape = async (fanficContext, props) => {
           if (fanficContext.oldLastArticleName !== lastArticleName) {
             fanficContext.setLastArticleName(lastArticleName);
             console.log(
-              `${fanficContext.name}\n${fanficContext.url}\nесть новые работы\n`,
+              `${fanficContext.name}\n${fanficContext.url}\nесть изменения\n`,
             );
           }
         }
