@@ -59,7 +59,7 @@
     ```
     const observe = require("ficbook-feeds-observer");
     const data = require('./data/uri');
-    observer(data, "fanficsdb", "fanfics");
+    observe(data, "fanficsdb", "fanfics");
     ```
 
 2. Запустите парсер стандартной командой `node index` или `node .` в терминале. Первый запуск парсера запишет количество фанфиков в базу данных.
