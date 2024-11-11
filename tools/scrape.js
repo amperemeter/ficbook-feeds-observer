@@ -24,7 +24,7 @@ module.exports.scrape = async (fanficContext, props) => {
         await timeout(1000); // имитируем действия человека
 
         const page =
-          Number($(".pagenav .paging-description b:last-of-type").html()) || 1;
+          Number($(".pagination a:nth-last-child(2)").html()) || 1;
 
         // проверить наличие блока с "горячими работами"
         const blockSeparator = $(".block-separator");
@@ -78,7 +78,7 @@ module.exports.scrape = async (fanficContext, props) => {
 
         // если нет фанфиков, но до этого они были,
         // спрашиваем об изменении количества фанфиков в бд
-        if (!articles && fanficContext.oldArticleCount) {
+        if (!articles && fanficContext.oldArticleCount ||  fanficContext.oldArticleCount - articles > 20) {
           await askCheck(fanficContext);
           const answer = await askDelete();
 

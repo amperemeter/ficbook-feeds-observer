@@ -5,7 +5,7 @@ module.exports.askCheck = async (fanficContext) => {
 
   const ask = async () => {
     const answer = await rl.question(
-      `В фэндоме "${fanficContext.name}" нет работ. Проверить? (д/н) `,
+      `В фэндоме "${fanficContext.name}" подозрительно мало работ. Проверить? (д/н) `,
     );
 
     if (answer === "д") {
