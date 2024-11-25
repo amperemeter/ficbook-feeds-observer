@@ -29,10 +29,10 @@ module.exports.readCollection = async (fanfics, props) => {
   }
 
   if (emptyFandoms.length) {
-    const obj = {};
-    emptyFandoms.forEach((item) => (obj[item[0]] = item[1]));
-
     console.log(`Нет работ: ${emptyFandoms.length}\n`);
+
+    // const obj = {};
+    // emptyFandoms.forEach((item) => (obj[item[0]] = item[1]));
     // console.log(obj);
     // console.log("\n");
   }
