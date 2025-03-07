@@ -18,7 +18,7 @@ module.exports.scrape = async (fanficContext, props) => {
   };
 
   async function getLastPage() {
-    await needle("get", `${link}?p=1`, options)
+    return await needle("get", `${link}?p=1`, options)
       .then(async (res) => {
         const $ = cheerio.load(res.body);
         await timeout(1000); // имитируем действия человека
@@ -38,7 +38,7 @@ module.exports.scrape = async (fanficContext, props) => {
         return page;
       })
       .then(async (page) => {
-        await getArticles(page);
+        return await getArticles(page);
       })
       .catch((err) => {
         console.log(`${err.message}\n`);
@@ -46,7 +46,7 @@ module.exports.scrape = async (fanficContext, props) => {
   }
 
   async function getArticles(page) {
-    await needle("get", `${link}?p=${page}`, options)
+    return await needle("get", `${link}?p=${page}`, options)
       .then(async (res) => {
         const $ = cheerio.load(res.body);
         await timeout(1000); // имитируем действия человека
@@ -94,13 +94,17 @@ module.exports.scrape = async (fanficContext, props) => {
         fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
         fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
         await fanficContext.saveLocalData(props.changedFanfics); // сохранить данные
-        await fanficContext.saveDataBase(props.collection); // сохранить кол-во новых работ
+        await fanficContext.saveDataBase(props.collection); // сохранить кол-во новых работ                     
+        return true;   
       })
       .catch((err) => {
         console.log(`${err.message}\n`);
       });
   }
 
-  await getLastPage();
+  let res;
+  setTimeout(() => !res && console.error(fanficContext.name, "\nОжидание больше 10 секунд\n"), 10000);
+  res = await getLastPage();  
+
   return noFic;
 };
