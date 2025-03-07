@@ -39,11 +39,6 @@ module.exports.scrape = async (fanficContext, options, props) => {
       const $ = cheerio.load(res.body);
       await timeout(1000);
 
-          
-      if (!lastPage) {
-        throw new Error('Возникла непредвиденная ошибка в getArticles!');
-      }
-
       // вычислить количество фанфиков
       const articlesOnLastPage = $(".fanfic-inline").length;
       let articles = (lastPage - 1) * 20 + articlesOnLastPage;
