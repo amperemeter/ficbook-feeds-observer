@@ -1,7 +1,7 @@
 const { scrape } = require("./scrape");
 const { proto } = require("./proto");
 
-module.exports.readCollection = async (fanfics, props) => {
+module.exports.readCollection = async (fanfics, options, props) => {
   console.log(`Всего фэндомов: ${fanfics.length}\n`);
   console.time("Время работы");
 
@@ -21,7 +21,7 @@ module.exports.readCollection = async (fanfics, props) => {
   }
 
   for (let i = 0; i < fanficsCopied.length; i++) {
-    const res = await scrape(fanficsCopied[i], props);
+    const res = await scrape(fanficsCopied[i], options, props);
 
     if (res) {
       emptyFandoms.push(res);

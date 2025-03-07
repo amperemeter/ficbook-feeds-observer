@@ -1,3 +1,7 @@
+module.exports.timeout = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 module.exports.askCheck = async (fanficContext) => {
   const readline = require("node:readline/promises");
   const { stdin: input, stdout: output } = require("node:process");
