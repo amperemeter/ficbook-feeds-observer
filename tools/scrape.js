@@ -10,9 +10,13 @@ module.exports.scrape = async (fanficContext, options, props) => {
   const getLastPage = async () => {
     try {
       const res = await needle("get", `${link}?p=1`, options);
-
+      
       const $ = cheerio.load(res.body);
       await timeout(1000);
+
+      if (!$(".main-holder").length && !link.includes("pairings")) {
+        throw new Error("Возникла непредвиденная ошибка в getLastPage!");
+      }
 
       const lastPage =
         Number($(".pagination a:nth-last-child(2)").html()) || 1;
@@ -28,7 +32,7 @@ module.exports.scrape = async (fanficContext, options, props) => {
       
       return lastPage;
     } catch (err) {
-      console.error(`${err.message}\n`);
+      throw err;
     }
   };
 
@@ -38,6 +42,10 @@ module.exports.scrape = async (fanficContext, options, props) => {
 
       const $ = cheerio.load(res.body);
       await timeout(1000);
+      
+      if (!$(".main-holder").length && !link.includes("pairings")) {
+        throw new Error("Возникла непредвиденная ошибка в getArticles!");
+      }
 
       // вычислить количество фанфиков
       const articlesOnLastPage = $(".fanfic-inline").length;
@@ -81,25 +89,24 @@ module.exports.scrape = async (fanficContext, options, props) => {
 
       return articles;
     } catch (err) {
-      console.error(`${err.message}\n`);
+      throw err;
     }
   };
 
   const saveData = async () => {
-    return await getLastPage()
-      .then((lastPage) => {
-        return getArticles(lastPage);
-      })
-      .then(async (articles) => {
-        fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
-        fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
-        await fanficContext.saveLocalData(props.changedFanfics); // сохранить данные
-        await fanficContext.saveDataBase(props.collection); // сохранить кол-во новых работ
-        return true;   
-      })
-      .catch((err) => {
-        console.error(`${err.message}\n`);
-      });
+    try {
+      const lastPage = await getLastPage();
+      const articles = await getArticles(lastPage);
+
+      fanficContext.setArticleCount(articles); // установить значение в свойство articleCount
+      fanficContext.checkNew(); // проверить разницу между oldArticleCount и articleCount
+      await fanficContext.saveLocalData(props.changedFanfics); // сохранить данные
+      await fanficContext.saveDataBase(props.collection); // сохранить кол-во новых работ
+    } catch (err) {
+      console.error(`${err.message}\n`);
+    } finally {
+      return true;
+    }
   };
 
   const res = await saveData();
