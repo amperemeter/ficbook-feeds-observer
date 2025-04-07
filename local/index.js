@@ -12,7 +12,7 @@ const app = async (fanfics) => {
       JSON.stringify(changedFanfics, null, 2),
     );
   } else {
-    console.log("Ошибка. Данные не могут быть сохранены");
+    console.error("Ошибка. Данные не могут быть сохранены");
   }
 };
 
